@@ -57,17 +57,23 @@ The UI is a [Vite](https://vitejs.dev) + React app built with
 
 ## Quick start
 
-From inside the Sprite:
+From inside the Sprite, run the one-line installer:
 
 ```bash
-git clone https://github.com/superfly/sprite-voice-bridge.git
-cd sprite-voice-bridge
-./setup.sh
+curl -fsSL https://raw.githubusercontent.com/superfly/sprite-voice-bridge/main/install.sh | bash
 ```
 
-`setup.sh` installs PulseAudio + ALSA, builds the web UI, wires `~/.asoundrc`,
-and registers three `sprite-env` services. When it finishes it prints how to
-open the page.
+Or for proxy mode (no public slot — see [Connecting](#connecting-public-url-vs-sprite-proxy)):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/superfly/sprite-voice-bridge/main/install.sh | bash -s -- proxy
+```
+
+The installer clones the repo to `~/sprite-voice-bridge` and runs `setup.sh`,
+which installs PulseAudio + ALSA, builds the web UI, wires `~/.asoundrc`, and
+registers three `sprite-env` services. When it finishes it prints how to open
+the page. (Prefer to do it by hand? `git clone … && cd sprite-voice-bridge &&
+./setup.sh`.)
 
 Then:
 
