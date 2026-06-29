@@ -71,8 +71,9 @@ open the page.
 
 Then:
 
-1. Open the page in your browser and click **Start microphone** (allow mic
-   access). Keep the tab open — the waveform should react when you talk.
+1. Open the page in your browser and click **Start microphone** (or press
+   <kbd>M</kbd>) and allow mic access. Keep the tab open — the waveform should
+   react when you talk.
 2. In your Claude Code terminal, run `/voice` and use push-to-talk.
 
 ## Connecting: public URL vs. `sprite proxy`

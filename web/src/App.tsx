@@ -1,11 +1,28 @@
+import { useEffect } from "react"
 import { LiveWaveform } from "@/components/ui/live-waveform"
 import { Button } from "@/components/ui/button"
+import { Kbd } from "@/components/ui/kbd"
 import { DotmSquare11 } from "@/components/ui/dotm-square-11"
 import { useVoiceBridge } from "@/useVoiceBridge"
 
 export default function App() {
   const { recording, status, error, toggle, onStreamReady, onStreamEnd, onError } =
     useVoiceBridge()
+
+  // Keyboard shortcut: press M to start/stop the mic.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return
+      if (e.key === "m" || e.key === "M") {
+        e.preventDefault()
+        toggle()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [toggle])
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center gap-10 overflow-hidden bg-background px-6 py-12">
@@ -61,14 +78,19 @@ export default function App() {
         />
       </div>
 
-      {/* control — label only */}
-      <Button
-        size="lg"
-        variant={recording ? "destructive" : "default"}
-        onClick={toggle}
-      >
-        {recording ? "Stop microphone" : "Start microphone"}
-      </Button>
+      {/* control — label only, with an M keyboard shortcut */}
+      <div className="flex flex-col items-center gap-3">
+        <Button
+          size="lg"
+          variant={recording ? "destructive" : "default"}
+          onClick={toggle}
+        >
+          {recording ? "Stop microphone" : "Start microphone"}
+        </Button>
+        <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          Press <Kbd>M</Kbd> to {recording ? "stop" : "start"}
+        </p>
+      </div>
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">
         <span>browser → WebSocket → PulseAudio → arecord → /voice</span>
