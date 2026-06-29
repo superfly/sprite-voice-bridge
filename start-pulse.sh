@@ -13,8 +13,11 @@ mkdir -p "$BRIDGE_DIR/run/pulse"
 # reach it without a cookie); keep the runtime dir owner-only so nothing else on
 # the box can.
 chmod 700 "$BRIDGE_DIR/run" "$BRIDGE_DIR/run/pulse" 2>/dev/null || true
-# module-pipe-source creates the FIFO itself and fails if it already exists.
-rm -f "$BRIDGE_DIR/mic.fifo"
+# module-pipe-source creates the FIFO itself and fails if it already exists, and
+# a SIGKILL'd pulse leaves a stale unix socket behind that makes the next bind()
+# fail with EADDRINUSE (which crashes startup and sends the service into a
+# restart loop). Remove both so every (re)start is clean.
+rm -f "$BRIDGE_DIR/mic.fifo" "$BRIDGE_DIR/run/pulse/native"
 
 PA_CONF="$BRIDGE_DIR/run/pulse-default.pa"
 cat > "$PA_CONF" <<EOF
