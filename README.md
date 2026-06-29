@@ -32,26 +32,32 @@ microphone to record from. This bridge gives it a *virtual* one: a small web app
 captures your mic in the browser, streams the audio over a WebSocket to the
 Sprite, and exposes it there as a normal ALSA capture device.
 
-```mermaid
-flowchart LR
-    subgraph browser["Your browser"]
-        direction TB
-        gum["getUserMedia<br/>16 kHz mono, s16le PCM"]
-        ws["WebSocket /ws"]
-        gum --> ws
-    end
-
-    subgraph sprite["The Sprite"]
-        direction TB
-        srv["server.js"]
-        fifo["mic.fifo"]
-        pulse["PulseAudio<br/>micbridge pipe-source"]
-        arec["arecord<br/>what Claude Code /voice runs"]
-        srv --> fifo --> pulse
-        pulse -->|"~/.asoundrc routes the<br/>ALSA default device"| arec
-    end
-
-    ws -->|WSS| srv
+```text
+╭─ YOUR BROWSER ─────────────────────────────────────────────────────────╮
+│                                                                        │
+│   getUserMedia  ─▶  16 kHz · mono · s16le PCM                          │
+│                           │                                            │
+│                           ▼   WebSocket  /ws                           │
+│                                                                        │
+╰────────────────────────────────────────────────────────────────────────╯
+                     │
+                 wss │   public Sprite URL   ·   or   ·   sprite proxy 8080
+                     ▼
+╭─ THE SPRITE  ·  headless, no microphone ───────────────────────────────╮
+│                                                                        │
+│   server.js                                                            │
+│       │  writes s16le PCM                                              │
+│       ▼                                                                │
+│   mic.fifo                      a named pipe on disk                   │
+│       │                                                                │
+│       ▼                                                                │
+│   PulseAudio “micbridge”        pipe-source · silence on idle          │
+│       │                                                                │
+│       │  ~/.asoundrc  ⇒  the default ALSA capture device               │
+│       ▼                                                                │
+│   arecord  ─▶  Claude Code  /voice      push-to-talk                   │
+│                                                                        │
+╰────────────────────────────────────────────────────────────────────────╯
 ```
 
 The UI is a [Vite](https://vitejs.dev) + React app built with
