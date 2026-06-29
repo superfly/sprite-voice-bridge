@@ -1,10 +1,31 @@
-# Sprite Voice Bridge
+<div align="center">
 
-![Sprite Voice Bridge](docs/header.jpg)
+<img src="docs/header.jpg" alt="Sprite Voice Bridge" width="100%" />
 
-Stream your **local microphone** into a headless [Fly.io Sprite](https://fly.io/sprites)
-so that Claude Code's `/voice` — or any ALSA recorder running on the Sprite —
-can hear you.
+<h1>🎙️&nbsp; Sprite Voice Bridge</h1>
+
+<p>
+  <strong>Give your headless <a href="https://fly.io/sprites">Fly.io&nbsp;Sprite</a> a microphone.</strong><br/>
+  Stream your local mic into a remote sandbox so Claude&nbsp;Code <code>/voice</code> — and any ALSA recorder — can hear you.
+</p>
+
+<p>
+  <a href="https://github.com/superfly/sprite-voice-bridge/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-7c3aed?style=flat-square" /></a>
+  <img alt="Runtime: Bun" src="https://img.shields.io/badge/runtime-Bun-f9f1e1?style=flat-square&logo=bun&logoColor=black" />
+  <img alt="UI: React + Vite" src="https://img.shields.io/badge/UI-React%20+%20Vite-61dafb?style=flat-square&logo=react&logoColor=black" />
+  <img alt="Platform: Fly.io Sprites" src="https://img.shields.io/badge/Fly.io-Sprites-8b5cf6?style=flat-square" />
+</p>
+
+<p>
+  <a href="#quick-start"><b>Quick start</b></a> &nbsp;·&nbsp;
+  <a href="#how-it-works"><b>How it works</b></a> &nbsp;·&nbsp;
+  <a href="#connecting-public-url-vs-sprite-proxy"><b>Connecting</b></a> &nbsp;·&nbsp;
+  <a href="#troubleshooting"><b>Troubleshooting</b></a>
+</p>
+
+</div>
+
+---
 
 A Sprite is a remote sandbox with no audio hardware, so `/voice` has no
 microphone to record from. This bridge gives it a *virtual* one: a small web app
