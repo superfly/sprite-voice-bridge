@@ -32,10 +32,10 @@ export default function App() {
       </header>
 
       {/* status line — Dot Matrix loader in front of a shimmering "Listening…" */}
-      <div className="flex h-9 items-center">
+      <div className="flex h-6 items-center">
         {recording ? (
-          <span className="inline-flex items-center gap-2.5">
-            <DotmSquare11 size={32} dotSize={4} speed={1.2} bloom />
+          <span className="inline-flex items-center gap-2">
+            <DotmSquare11 size={16} dotSize={2} speed={1.2} />
             <span className="shimmer text-sm font-medium">Listening…</span>
           </span>
         ) : status === "connecting" ? (
