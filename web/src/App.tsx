@@ -30,7 +30,7 @@ export default function App() {
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl transition-opacity duration-700"
         style={{
-          background: "radial-gradient(circle, #2b4a7a 0%, transparent 70%)",
+          background: "radial-gradient(circle, #0fa34d 0%, transparent 70%)",
           opacity: recording ? 0.55 : 0.2,
         }}
       />
@@ -52,7 +52,7 @@ export default function App() {
                 <LiveWaveform
                   active={recording}
                   height={56}
-                  barColor="#7DD3FC"
+                  barColor="#05df72"
                   onStreamReady={onStreamReady}
                   onStreamEnd={onStreamEnd}
                   onError={onError}
