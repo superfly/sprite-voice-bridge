@@ -45,14 +45,47 @@ cd sprite-voice-bridge
 ```
 
 `setup.sh` installs PulseAudio + ALSA, builds the web UI, wires `~/.asoundrc`,
-and registers three `sprite-env` services. When it finishes it prints your
-Sprite URL.
+and registers three `sprite-env` services. When it finishes it prints how to
+open the page.
 
 Then:
 
-1. Open the Sprite URL in your browser and click **Start microphone** (allow mic
+1. Open the page in your browser and click **Start microphone** (allow mic
    access). Keep the tab open — the waveform should react when you talk.
 2. In your Claude Code terminal, run `/voice` and use push-to-talk.
+
+## Connecting: public URL vs. `sprite proxy`
+
+The bridge needs to be reachable from your browser. There are two ways, chosen
+by the argument to `setup.sh`:
+
+### `./setup.sh http` (default) — public Sprite URL
+
+Registers the server with `--http-port 8080`, so the Sprite proxy serves it at
+your public Sprite URL (`https://<sprite>.sprites.app/`). Simplest, but it
+**consumes the Sprite's single `--http-port` slot** — if you need that slot for
+your actual app, use proxy mode instead.
+
+### `./setup.sh proxy` — local tunnel, no public slot
+
+Registers the server **without** `--http-port`, leaving your public slot free.
+Reach it with a local TCP tunnel from your machine:
+
+```bash
+sprite proxy 8080          # forwards localhost:8080 → the sprite
+```
+
+Then open **http://localhost:8080/**. No HTTPS is needed: browsers treat
+`http://localhost` as a [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts),
+so `getUserMedia` and WebSockets work over plain `http`/`ws`. This is also more
+private — nothing is exposed publicly, and the tunnel needs your authenticated
+Sprites CLI.
+
+> The web app picks `ws://` or `wss://` automatically from the page URL, so the
+> same build works in both modes — only the service registration differs.
+
+To switch an existing install between modes, just re-run `setup.sh` with the
+other argument.
 
 > The browser tab must be actively streaming the whole time you want to use
 > voice. The terminal's push-to-talk only decides *when* `arecord` reads from
