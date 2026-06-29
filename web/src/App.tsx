@@ -1,7 +1,7 @@
 import { Mic } from "lucide-react"
 import { LiveWaveform } from "@/components/ui/live-waveform"
 import { VoiceButton, type VoiceButtonState } from "@/components/ui/voice-button"
-import { DotmSquare11 } from "@/components/ui/dotm-square-11"
+import { PixelScanner } from "@/components/ui/pixel-scanner"
 import { useVoiceBridge } from "@/useVoiceBridge"
 
 export default function App() {
@@ -70,7 +70,7 @@ export default function App() {
         onPress={toggle}
         icon={<Mic className="size-4" />}
         label={recording ? "Stop microphone" : "Start microphone"}
-        trailing={recording ? <DotmSquare11 size={18} color="currentColor" /> : undefined}
+        trailing={recording ? <PixelScanner /> : undefined}
       />
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">

@@ -106,3 +106,25 @@
   from { background-position: 200% 0; }
   to { background-position: -200% 0; }
 }
+
+/* in-button "listening" scanner (PixelScanner) -------------------------- */
+.pixel-scanner-dot {
+  opacity: 0.18;
+  will-change: transform, opacity;
+  animation: pixel-scan 1400ms linear infinite;
+}
+
+@keyframes pixel-scan {
+  0%, 100% { opacity: 0.18; transform: scale(1); }
+  6%       { opacity: 1;    transform: scale(1.6); }
+  14%      { opacity: 0.5;  transform: scale(1.15); }
+  22%      { opacity: 0.18; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-scanner-dot {
+    animation: none;
+    opacity: 0.6;
+    transform: none;
+  }
+}

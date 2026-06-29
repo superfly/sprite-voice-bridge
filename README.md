@@ -157,14 +157,9 @@ bun run build          # output → web/dist, served by server.js
 sprite-env services restart voice-bridge
 ```
 
-UI components were added with the [shadcn](https://ui.shadcn.com) CLI, e.g.:
-
-```bash
-bunx shadcn@latest add @dotmatrix/dotm-square-11
-```
-
-`web/src/useVoiceBridge.ts` owns the WebSocket + PCM pipeline; `web/src/App.tsx`
-is the page.
+Vendored UI components live under `web/src/components/ui/`; `web/src/index.css`
+holds the theme tokens and animation keyframes. `web/src/useVoiceBridge.ts` owns
+the WebSocket + PCM pipeline; `web/src/App.tsx` is the page.
 
 ## Configuration
 
@@ -189,9 +184,9 @@ All paths derive from the repo location, so you can clone it anywhere.
 ## Credits
 
 UI components come from [ElevenLabs UI](https://github.com/elevenlabs/ui)
-(Live Waveform, Voice Button), [Dot Matrix](https://dotmatrix.zzzzshawn.cloud)
-(the `dotm-square-11` listening indicator), and [shadcn/ui](https://ui.shadcn.com)
-(Button, shimmer utility).
+(Live Waveform, Voice Button) and [shadcn/ui](https://ui.shadcn.com)
+(Button, shimmer utility). The in-button "listening" scanner is a small custom
+component (`web/src/components/ui/pixel-scanner.tsx`).
 
 The header image was generated with OpenAI's gpt-image.
 
