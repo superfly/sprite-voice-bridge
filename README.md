@@ -170,11 +170,12 @@ the WebSocket + PCM pipeline; `web/src/App.tsx` is the page.
 
 ## Configuration
 
-| Variable     | Default                      | Used by                          |
-| ------------ | ---------------------------- | -------------------------------- |
-| `BRIDGE_DIR` | the repo directory           | all scripts + `server.js`        |
-| `PORT`       | `8080`                       | `server.js`                      |
-| `MIC_FIFO`   | `$BRIDGE_DIR/mic.fifo`       | `server.js`                      |
+| Variable             | Default                | Used by                                              |
+| -------------------- | ---------------------- | ---------------------------------------------------- |
+| `BRIDGE_DIR`         | the repo directory     | all scripts + `server.js`                            |
+| `PORT`               | `8080`                 | `server.js`                                          |
+| `MIC_FIFO`           | `$BRIDGE_DIR/mic.fifo` | `server.js`                                          |
+| `ALLOWED_WS_ORIGINS` | _(unset = allow all)_  | `server.js` — comma-separated WS `Origin` allowlist  |
 
 All paths derive from the repo location, so you can clone it anywhere.
 

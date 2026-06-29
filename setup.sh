@@ -31,7 +31,7 @@ sudo apt-get install -y pulseaudio pulseaudio-utils alsa-utils libasound2-plugin
 echo "==> Routing the default ALSA capture device into the bridge (~/.asoundrc)…"
 ASOUND="$HOME/.asoundrc"
 if [ -f "$ASOUND" ] && ! grep -q "voice-bridge" "$ASOUND"; then
-  cp "$ASOUND" "$ASOUND.bak"
+  [ -e "$ASOUND.bak" ] || cp "$ASOUND" "$ASOUND.bak"
   echo "    (backed up existing ~/.asoundrc to ~/.asoundrc.bak)"
 fi
 cat > "$ASOUND" <<EOF
@@ -74,7 +74,7 @@ sprite-env services create voice-bridge \
 echo
 echo "✅ Done."
 if [ "$MODE" = "http" ]; then
-  URL="$(sprite-env info 2>/dev/null | sed -n 's/.*"sprite_url":"\([^"]*\)".*/\1/p')"
+  URL="$(sprite-env info 2>/dev/null | sed -n 's/.*"sprite_url":"\([^"]*\)".*/\1/p' || true)"
   echo "   1. Open  ${URL:-<your sprite URL>}/  in a browser and click \"Start microphone\"."
   echo "   2. In your Claude Code terminal run /voice and use push-to-talk."
 else

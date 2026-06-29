@@ -12,7 +12,7 @@ export default function App() {
   // Keyboard shortcut: press M to start/stop the mic.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return
       const t = e.target as HTMLElement | null
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return
       if (e.key === "m" || e.key === "M") {
@@ -73,11 +73,18 @@ export default function App() {
 
       {/* control — label only, with an M keyboard shortcut */}
       <div className="flex flex-col items-center gap-3">
-        <Button size="lg" variant={recording ? "destructive" : "default"} onClick={toggle}>
+        <Button
+          size="lg"
+          variant={recording ? "destructive" : "default"}
+          onClick={toggle}
+          aria-pressed={recording}
+        >
           {recording ? "Stop microphone" : "Start microphone"}
         </Button>
         {status === "error" ? (
-          <p className="text-xs font-medium text-destructive">{error}</p>
+          <p role="alert" className="text-xs font-medium text-destructive">
+            {error}
+          </p>
         ) : (
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
             Press <Kbd>M</Kbd> to {recording ? "stop" : "start"}

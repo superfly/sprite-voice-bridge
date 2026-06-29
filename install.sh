@@ -11,6 +11,7 @@
 #   VOICE_BRIDGE_REPO  (default: the superfly repo)
 #   VOICE_BRIDGE_DIR   (default: $HOME/sprite-voice-bridge)
 #   VOICE_BRIDGE_MODE  (default: http; or pass the mode as an argument)
+#   VOICE_BRIDGE_FORCE (=1 to discard local changes when updating an existing checkout)
 set -euo pipefail
 
 REPO="${VOICE_BRIDGE_REPO:-https://github.com/superfly/sprite-voice-bridge.git}"
@@ -31,7 +32,16 @@ esac
 if [ -d "$DIR/.git" ]; then
   say "Updating existing checkout in $DIR"
   git -C "$DIR" fetch --depth 1 origin main
-  git -C "$DIR" reset --hard origin/main
+  if [ -n "$(git -C "$DIR" status --porcelain)" ]; then
+    if [ "${VOICE_BRIDGE_FORCE:-}" = "1" ]; then
+      say "VOICE_BRIDGE_FORCE=1 — discarding local changes in $DIR"
+      git -C "$DIR" reset --hard origin/main
+    else
+      die "$DIR has uncommitted changes. Commit/stash them, or re-run with VOICE_BRIDGE_FORCE=1 to discard."
+    fi
+  else
+    git -C "$DIR" merge --ff-only origin/main
+  fi
 else
   say "Cloning $REPO → $DIR"
   git clone --depth 1 "$REPO" "$DIR"

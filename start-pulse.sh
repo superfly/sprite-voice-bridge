@@ -9,6 +9,10 @@ export XDG_RUNTIME_DIR="$BRIDGE_DIR/run"
 export HOME="${HOME:-/home/$(id -un)}"
 
 mkdir -p "$BRIDGE_DIR/run/pulse"
+# The native socket allows anonymous connections (so the ALSA pulse plugin can
+# reach it without a cookie); keep the runtime dir owner-only so nothing else on
+# the box can.
+chmod 700 "$BRIDGE_DIR/run" "$BRIDGE_DIR/run/pulse" 2>/dev/null || true
 # module-pipe-source creates the FIFO itself and fails if it already exists.
 rm -f "$BRIDGE_DIR/mic.fifo"
 
