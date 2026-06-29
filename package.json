@@ -1,0 +1,25 @@
+{
+  "name": "sprite-voice-bridge",
+  "version": "1.0.0",
+  "description": "Stream your local microphone into a headless Fly.io Sprite so Claude Code /voice (and any ALSA recorder) can hear you.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superfly/sprite-voice-bridge.git"
+  },
+  "type": "commonjs",
+  "bin": {
+    "voice-bridge-server": "server.js"
+  },
+  "scripts": {
+    "setup": "./setup.sh",
+    "start": "bun server.js",
+    "build": "cd web && bun run build"
+  },
+  "dependencies": {
+    "ws": "^8.21.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
