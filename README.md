@@ -191,9 +191,7 @@ All paths derive from the repo location, so you can clone it anywhere.
 ## Credits
 
 UI components come from [ElevenLabs UI](https://github.com/elevenlabs/ui)
-(Live Waveform), [Dot Matrix](https://dotmatrix.zzzzshawn.cloud)
-(the `dotm-square-11` indicator next to "Listening…"), and
-[shadcn/ui](https://ui.shadcn.com) (Button, shimmer utility).
+(Live Waveform) and [shadcn/ui](https://ui.shadcn.com) (Button, Kbd).
 
 The header image was generated with OpenAI's gpt-image.
 

@@ -1,8 +1,8 @@
 import { useEffect } from "react"
+import { cn } from "@/lib/utils"
 import { LiveWaveform } from "@/components/ui/live-waveform"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
-import { DotmSquare11 } from "@/components/ui/dotm-square-11"
 import { useVoiceBridge } from "@/useVoiceBridge"
 
 export default function App() {
@@ -35,61 +35,54 @@ export default function App() {
         }}
       />
 
-      <header className="flex flex-col items-center gap-3 text-center">
-        <img
-          src="/header.jpg"
-          alt="Sprite Voice Bridge"
-          className="mb-1 w-full max-w-md rounded-xl border border-border shadow-lg"
-        />
-        <h1 className="text-2xl font-semibold tracking-tight">Sprite Voice Bridge</h1>
-        <p className="max-w-sm text-sm text-muted-foreground">
-          Streams this device's microphone to the headless sprite so Claude Code{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">/voice</code> can hear you.
-        </p>
+      <header className="flex w-full max-w-md flex-col items-center gap-4 text-center">
+        {/* hero panel — the header image with the live waveform docked to its
+            bottom edge. The waveform stays collapsed (0 height) until the mic is
+            active, then grows in. */}
+        <div className="w-full overflow-hidden rounded-xl border border-border shadow-lg">
+          <img src="/header.jpg" alt="Sprite Voice Bridge" className="block w-full" />
+          <div
+            className={cn(
+              "grid transition-all duration-500 ease-out",
+              recording ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+            )}
+          >
+            <div className="overflow-hidden">
+              <div className="border-t border-border bg-card/60 px-4 py-3 backdrop-blur">
+                <LiveWaveform
+                  active={recording}
+                  height={56}
+                  barColor="#7DD3FC"
+                  onStreamReady={onStreamReady}
+                  onStreamEnd={onStreamEnd}
+                  onError={onError}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-2xl font-semibold tracking-tight">Sprite Voice Bridge</h1>
+          <p className="max-w-sm text-sm text-muted-foreground">
+            Streams this device's microphone to the headless sprite so Claude Code{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">/voice</code> can hear you.
+          </p>
+        </div>
       </header>
-
-      {/* status line — Dot Matrix loader in front of a shimmering "Listening…" */}
-      <div className="flex h-6 items-center">
-        {recording ? (
-          <span className="inline-flex items-center gap-2">
-            <DotmSquare11 size={16} dotSize={2} speed={1.2} />
-            <span className="shimmer text-sm font-medium">Listening…</span>
-          </span>
-        ) : status === "connecting" ? (
-          <span className="text-sm font-medium text-muted-foreground">Connecting…</span>
-        ) : status === "error" ? (
-          <span className="text-sm font-medium text-destructive">{error}</span>
-        ) : (
-          <span className="text-sm font-medium text-muted-foreground">
-            Idle — start to stream your mic to the sprite
-          </span>
-        )}
-      </div>
-
-      {/* live mic waveform — owns the single MediaStream we tap for PCM */}
-      <div className="w-full max-w-md rounded-xl border border-border bg-card/40 px-4 py-3 backdrop-blur">
-        <LiveWaveform
-          active={recording}
-          height={64}
-          barColor={recording ? "#7DD3FC" : undefined}
-          onStreamReady={onStreamReady}
-          onStreamEnd={onStreamEnd}
-          onError={onError}
-        />
-      </div>
 
       {/* control — label only, with an M keyboard shortcut */}
       <div className="flex flex-col items-center gap-3">
-        <Button
-          size="lg"
-          variant={recording ? "destructive" : "default"}
-          onClick={toggle}
-        >
+        <Button size="lg" variant={recording ? "destructive" : "default"} onClick={toggle}>
           {recording ? "Stop microphone" : "Start microphone"}
         </Button>
-        <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          Press <Kbd>M</Kbd> to {recording ? "stop" : "start"}
-        </p>
+        {status === "error" ? (
+          <p className="text-xs font-medium text-destructive">{error}</p>
+        ) : (
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            Press <Kbd>M</Kbd> to {recording ? "stop" : "start"}
+          </p>
+        )}
       </div>
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">
