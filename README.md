@@ -184,9 +184,9 @@ All paths derive from the repo location, so you can clone it anywhere.
 ## Credits
 
 UI components come from [ElevenLabs UI](https://github.com/elevenlabs/ui)
-(Live Waveform, Voice Button) and [shadcn/ui](https://ui.shadcn.com)
-(Button, shimmer utility). The in-button "listening" scanner is a small custom
-component (`web/src/components/ui/pixel-scanner.tsx`).
+(Live Waveform, Voice Button), [Dot Matrix](https://dotmatrix.zzzzshawn.cloud)
+(the `dotm-square-11` indicator next to "Listening…"), and
+[shadcn/ui](https://ui.shadcn.com) (Button, shimmer utility).
 
 The header image was generated with OpenAI's gpt-image.
 

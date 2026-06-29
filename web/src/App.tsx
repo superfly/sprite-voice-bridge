@@ -1,7 +1,7 @@
 import { Mic } from "lucide-react"
 import { LiveWaveform } from "@/components/ui/live-waveform"
 import { VoiceButton, type VoiceButtonState } from "@/components/ui/voice-button"
-import { PixelScanner } from "@/components/ui/pixel-scanner"
+import { DotmSquare11 } from "@/components/ui/dotm-square-11"
 import { useVoiceBridge } from "@/useVoiceBridge"
 
 export default function App() {
@@ -38,7 +38,10 @@ export default function App() {
       {/* status line — shimmer only on "Listening…" */}
       <div className="flex h-6 items-center">
         {recording ? (
-          <span className="shimmer text-sm font-medium">Listening…</span>
+          <span className="inline-flex items-center gap-2">
+            <DotmSquare11 size={18} color="#7DD3FC" />
+            <span className="shimmer text-sm font-medium">Listening…</span>
+          </span>
         ) : status === "connecting" ? (
           <span className="text-sm font-medium text-muted-foreground">Connecting…</span>
         ) : status === "error" ? (
@@ -70,7 +73,6 @@ export default function App() {
         onPress={toggle}
         icon={<Mic className="size-4" />}
         label={recording ? "Stop microphone" : "Start microphone"}
-        trailing={recording ? <PixelScanner /> : undefined}
       />
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">
