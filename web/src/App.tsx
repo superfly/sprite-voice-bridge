@@ -65,7 +65,7 @@ export default function App() {
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-2xl font-semibold tracking-tight">Sprite Voice Bridge</h1>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Streams this device's microphone to the headless sprite so Claude Code{" "}
+            Streams this device's microphone to the Sprite so Claude Code{" "}
             <code className="rounded bg-muted px-1.5 py-0.5 text-xs">/voice</code> can hear you.
           </p>
         </div>
@@ -93,8 +93,6 @@ export default function App() {
       </div>
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">
-        <span>browser → WebSocket → PulseAudio → arecord → /voice</span>
-        <span aria-hidden="true">·</span>
         <a
           href="https://github.com/superfly/sprite-voice-bridge"
           target="_blank"
