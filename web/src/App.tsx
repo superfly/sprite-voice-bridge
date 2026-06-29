@@ -1,15 +1,11 @@
-import { Mic } from "lucide-react"
 import { LiveWaveform } from "@/components/ui/live-waveform"
-import { VoiceButton, type VoiceButtonState } from "@/components/ui/voice-button"
+import { Button } from "@/components/ui/button"
 import { DotmSquare11 } from "@/components/ui/dotm-square-11"
 import { useVoiceBridge } from "@/useVoiceBridge"
 
 export default function App() {
   const { recording, status, error, toggle, onStreamReady, onStreamEnd, onError } =
     useVoiceBridge()
-
-  const btnState: VoiceButtonState =
-    status === "connecting" ? "processing" : status === "error" ? "error" : "idle"
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center gap-10 overflow-hidden bg-background px-6 py-12">
@@ -35,11 +31,11 @@ export default function App() {
         </p>
       </header>
 
-      {/* status line — shimmer only on "Listening…" */}
-      <div className="flex h-6 items-center">
+      {/* status line — Dot Matrix loader in front of a shimmering "Listening…" */}
+      <div className="flex h-9 items-center">
         {recording ? (
-          <span className="inline-flex items-center gap-2">
-            <DotmSquare11 size={18} color="#7DD3FC" />
+          <span className="inline-flex items-center gap-2.5">
+            <DotmSquare11 size={32} dotSize={4} speed={1.2} bloom />
             <span className="shimmer text-sm font-medium">Listening…</span>
           </span>
         ) : status === "connecting" ? (
@@ -65,15 +61,14 @@ export default function App() {
         />
       </div>
 
-      {/* control — dot-matrix loader shows in the button while listening */}
-      <VoiceButton
-        state={btnState}
+      {/* control — label only */}
+      <Button
         size="lg"
         variant={recording ? "destructive" : "default"}
-        onPress={toggle}
-        icon={<Mic className="size-4" />}
-        label={recording ? "Stop microphone" : "Start microphone"}
-      />
+        onClick={toggle}
+      >
+        {recording ? "Stop microphone" : "Start microphone"}
+      </Button>
 
       <footer className="absolute bottom-4 flex items-center gap-2.5 text-xs text-muted-foreground/60">
         <span>browser → WebSocket → PulseAudio → arecord → /voice</span>
