@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/user-attachments/assets/8b427cb5-e2bf-49c0-9647-ba919e2f4ffa" alt="Sprite Voice Bridge" width="100%" />
+<img src="https://github.com/user-attachments/assets/028a6a17-9726-4f48-8120-48558a2b4dfa" alt="Sprite Voice Bridge" width="100%" />
 
 <h1>🎙️&nbsp; Sprite Voice Bridge</h1>
 
