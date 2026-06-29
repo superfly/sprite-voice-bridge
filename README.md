@@ -5,7 +5,7 @@
 <h1>🎙️&nbsp; Sprite Voice Bridge</h1>
 
 <p>
-  <strong>Give your headless <a href="https://fly.io/sprites">Fly.io&nbsp;Sprite</a> a microphone.</strong><br/>
+  <strong>Give your <a href="https://sprites.dev">Fly.io&nbsp;Sprite</a> a microphone.</strong><br/>
   Stream your local mic into a remote sandbox so Claude&nbsp;Code <code>/voice</code> — and any ALSA recorder — can hear you.
 </p>
 
@@ -203,13 +203,6 @@ All paths derive from the repo location, so you can clone it anywhere.
   rates. Use Chrome/Firefox, or open an issue to add a resampling fallback.
 - **Page won't load** — the Sprite proxy may auth-gate the URL; open it in the
   browser where you're signed in to Fly.io.
-
-## Credits
-
-UI components come from [ElevenLabs UI](https://github.com/elevenlabs/ui)
-(Live Waveform) and [shadcn/ui](https://ui.shadcn.com) (Button, Kbd).
-
-The header image was generated with OpenAI's gpt-image.
 
 ## License
 
